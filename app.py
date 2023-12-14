@@ -34,11 +34,13 @@ def createNewImageFromTemplate(templateImage, randomColours, newFileName, ranges
     #loop over all pixels in image-array, check the pre-defined colour ranges to replace those with random colours from the colourarray.
     for item in imageArray:
         if item[0] in ranges[0]:
-            #change pixels with matching values to random colour from colourarray (convert to RGB here because lazy)
+            #set pixel in range[0] to randomcolour[0]
             newImage.append(randomColours[0].colourCode)
         elif item[0] in ranges[1]:
+            #set pixel in range[1] to randomcolour[1]
             newImage.append(randomColours[1].colourCode)
         elif item[0] in ranges[2]:
+            #set pixel in range[2] to randomcolour[2]
             newImage.append(randomColours[2].colourCode)
         else:
             newImage.append(item)
