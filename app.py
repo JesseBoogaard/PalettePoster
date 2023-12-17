@@ -15,16 +15,8 @@ def generateNewFileName():
 
 def createNewImageFromTemplate(templateImage, randomColours, newFileName, ranges):
     imageArray = templateImage.getdata()
-    newImage = []
-    for item in imageArray:
-        if item[0] in ranges[0]:
-            newImage.append(randomColours[0].colourCode)
-        elif item[0] in ranges[1]:
-            newImage.append(randomColours[1].colourCode)
-        elif item[0] in ranges[2]:
-            newImage.append(randomColours[2].colourCode)
-        else:
-            newImage.append(item)
+    colourCodes = [randomColours[i].colourCode for i in range(len(randomColours))]
+    newImage = [colourCodes[0] if item[0] in ranges[0] else colourCodes[1] if item[0] in ranges[1] else colourCodes[2] if item[0] in ranges[2] else item for item in imageArray]
     templateImage.putdata(newImage)
     templateImage.save(newFileName)
 
@@ -57,8 +49,10 @@ def __main__():
 
     for n in range(numberOfColours):
          colour = Colour()
-         colour.colourCode = colour.generateRandomColour()
-         colour.colourName = colour.getColourName(colour.colourCode)
+         colourCode = colour.generateRandomColour()
+         colourName = colour.getColourName(colourCode)
+         colour.colourCode = colourCode
+         colour.colourName = colourName
          randomColours.append(colour)
 
     createNewImageFromTemplate(img, randomColours, newFileName, ranges)
