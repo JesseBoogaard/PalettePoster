@@ -1,14 +1,9 @@
 #imports
-from classes import Colour, FontInfo
-import colornames
-import numpy as np
+from classes.Colour import Colour
+from classes.FontInfo import FontInfo
 import uuid
 import time
 from PIL import Image, ImageDraw
-
-def generateRandomColour():
-    colour = tuple(np.random.choice(range(256), size=3))
-    return colour
 
 def loadTemplateImage(imageTemplate):
     img = Image.open(imageTemplate)
@@ -41,11 +36,6 @@ def addColourNamesToImage(randomColours, fontInfo, newFileName):
     tmp.text((570,915), '"' + randomColours[2].colourName + '"', fill=fontInfo.fill, stroke_fill=fontInfo.strokeFill, stroke_width=fontInfo.strokeWidth, font=fontInfo.font)
     image.save(newFileName)
 
-def getColourName(colourCode):
-    print(colourCode)
-    colourName = colornames.find("#%02x%02x%02x" % colourCode)
-    return colourName
-
 #######-------------------------------------MAIN PROGRAM HERE----------------------------------------######
 
 def __main__():
@@ -53,22 +43,24 @@ def __main__():
     numberOfColours = 3
     imageTemplate = "templates/3way_template.jpg"
     saveFolder = "generated/"
+    newFileName = saveFolder + generateNewFileName()
+
     fontInfo = FontInfo('fonts/Verdanai.ttf', 24)
     fontInfo.fill = (250,250,250)
     fontInfo.strokeFill = (50,50,50)
     fontInfo.strokeWidth = 1
+
     ranges = [range(20,30), range(30,100), range(100,200)]
     
     img = loadTemplateImage(imageTemplate)
 
     for n in range(numberOfColours):
          colour = Colour()
-         colour.colourCode = generateRandomColour()
-         colour.colourName = getColourName(colour.colourCode)
+         colour.colourCode = colour.generateRandomColour()
+         colour.colourName = colour.getColourName(colour.colourCode)
          randomColours.append(colour)
 
-    newFileName = saveFolder + generateNewFileName()
-    newImage = createNewImageFromTemplate(img, randomColours, newFileName, ranges)
+    createNewImageFromTemplate(img, randomColours, newFileName, ranges)
     addColourNamesToImage(randomColours, fontInfo, newFileName)
 
 startTime = time.time()

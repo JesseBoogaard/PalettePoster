@@ -1,4 +1,4 @@
 Generating random colour palettes.
 
 
-colornames.py borrowed from @rgson
+colornames.py borrowed from @rgson.
