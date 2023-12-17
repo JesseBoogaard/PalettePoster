@@ -28,18 +28,19 @@ def createNewImageFromTemplate(templateImage, randomColours, newFileName, ranges
     templateImage.putdata(newImage)
     templateImage.save(newFileName)
 
-def addColourNamesToImage(randomColours, fontInfo, newFileName):
+def addColourNamesToImage(randomColours, fontInfo, textLocations, newFileName):
     image = Image.open(newFileName)
     tmp = ImageDraw.Draw(image)
-    tmp.text((150,915), '"' + randomColours[0].colourName + '"', fill=fontInfo.fill, stroke_fill=fontInfo.strokeFill, stroke_width=fontInfo.strokeWidth, font=fontInfo.font)
-    tmp.text((150,500), '"' + randomColours[1].colourName + '"', fill=fontInfo.fill, stroke_fill=fontInfo.strokeFill, stroke_width=fontInfo.strokeWidth, font=fontInfo.font)
-    tmp.text((570,915), '"' + randomColours[2].colourName + '"', fill=fontInfo.fill, stroke_fill=fontInfo.strokeFill, stroke_width=fontInfo.strokeWidth, font=fontInfo.font)
+    #this is definitely gonna break when you use different templates. but thats an issue for future me.
+    for index, item in enumerate(textLocations):
+        tmp.text(item, '"' + randomColours[index].colourName + '"', fill=fontInfo.fill, stroke_fill=fontInfo.strokeFill, stroke_width=fontInfo.strokeWidth, font=fontInfo.font)
     image.save(newFileName)
 
 #######-------------------------------------MAIN PROGRAM HERE----------------------------------------######
 
 def __main__():
     randomColours = []
+    textLocations = [(150,915), (150,500), (570,915)]
     numberOfColours = 3
     imageTemplate = "templates/3way_template.jpg"
     saveFolder = "generated/"
@@ -61,7 +62,7 @@ def __main__():
          randomColours.append(colour)
 
     createNewImageFromTemplate(img, randomColours, newFileName, ranges)
-    addColourNamesToImage(randomColours, fontInfo, newFileName)
+    addColourNamesToImage(randomColours, fontInfo, textLocations, newFileName)
 
 startTime = time.time()
 __main__()
