@@ -1,4 +1,4 @@
-#imports
+import os
 from classes.Colour import Colour
 from classes.FontInfo import FontInfo
 import uuid
@@ -36,6 +36,9 @@ def __main__():
     numberOfColours = 3
     imageTemplate = "templates/3way_template.jpg"
     saveFolder = "generated/"
+    if not os.path.exists(saveFolder):
+        os.makedirs(saveFolder)
+    
     newFileName = saveFolder + generateNewFileName()
 
     fontInfo = FontInfo('fonts/Verdanai.ttf', 24)
