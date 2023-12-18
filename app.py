@@ -31,14 +31,13 @@ def addColourNamesToImage(randomColours, fontInfo, textLocations, newFileName):
 #######-------------------------------------MAIN PROGRAM HERE----------------------------------------######
 
 def __main__():
-    randomColours = []
     textLocations = [(150,915), (150,500), (570,915)]
     numberOfColours = 3
     imageTemplate = "templates/3way_template.jpg"
     saveFolder = "generated/"
     if not os.path.exists(saveFolder):
         os.makedirs(saveFolder)
-    
+
     newFileName = saveFolder + generateNewFileName()
 
     fontInfo = FontInfo('fonts/Verdanai.ttf', 24)
@@ -50,13 +49,7 @@ def __main__():
     
     img = loadTemplateImage(imageTemplate)
 
-    for n in range(numberOfColours):
-         colour = Colour()
-         colourCode = colour.generateRandomColour()
-         colourName = colour.getColourName(colourCode)
-         colour.colourCode = colourCode
-         colour.colourName = colourName
-         randomColours.append(colour)
+    randomColours = [Colour() for _ in range(numberOfColours)]
 
     createNewImageFromTemplate(img, randomColours, newFileName, ranges)
     addColourNamesToImage(randomColours, fontInfo, textLocations, newFileName)
