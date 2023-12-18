@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import numpy as np
 
 """
 Gives the name of any RGB color.
@@ -21,7 +22,7 @@ def find(r, g, b):
      - a tuple of three ints (r, g, b) in the range 0 <= x < 256, or
      - a hexadecimal representation (3 or 6 digits, '#' prefix optional).
     """
-    if type(r) is not int or type(g) is not int or type(b) is not int:
+    if type(r) is not np.int32 or type(g) is not np.int32 or type(b) is not np.int32:
         raise TypeError("R, G and B values must be int")
     if not (0 <= r < 256 and 0 <= g < 256 and 0 <= b < 256):
         raise ValueError("Invalid color value: must be 0 <= x < 256")

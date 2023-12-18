@@ -1,15 +1,15 @@
 import numpy as np
-import colournames
+from colournames import find
 
 class Colour:
     def __init__(self):
-        self.colourCode = None
-        self.colourName = None
+        self.colourCode = self.generateRandomColour()
+        self.colourName = self.getColourName(self.colourCode)
 
     def generateRandomColour(self):
         colour = tuple(np.random.choice(range(256), size=3))
         return colour
     
     def getColourName(self, colourCode):
-        colourName = colournames.find(int(colourCode[0]), int(colourCode[1]), int(colourCode[2]))
+        colourName = find(colourCode)
         return colourName
